@@ -4,6 +4,7 @@ RandomTempo = true
 RandomTimeSignature = true
 RandomGrid = true
 RandomTracks = true
+RandomTrackNames = true
 RandomTrackColors = true
 
 --ADVANCED: Modify these values to limit the randomness
@@ -56,8 +57,10 @@ local function RandomTr()
 		random_track_role[math.random(1,#random_track_role)].." "..
 		random_track_inst[math.random(1,#random_track_inst)]
 		reaper.Main_OnCommand(40001,1)
-		retval,stringNeedBig = reaper.GetSetMediaTrackInfo_String(
-			reaper.GetTrack(0, i-1), "P_NAME", trackName, true)
+		if RandomTrackNames == true then
+			retval,stringNeedBig = reaper.GetSetMediaTrackInfo_String(
+				reaper.GetTrack(0, i-1), "P_NAME", trackName, true)
+		end
 	end
 end
 
