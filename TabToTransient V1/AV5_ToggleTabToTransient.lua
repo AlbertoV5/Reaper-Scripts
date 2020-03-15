@@ -1,5 +1,7 @@
 --User Variables
+--The installation path is after User/username/ in Mac
 installationPath = "/Library/Application Support/REAPER/Scripts/" -- \ for Win, / for Mac
+--/Program Files/REAPER (x64)/InstallData/Scripts for Windows, probably
 fileNameTabPrev = "AV5_TabTransientPrev.lua"
 fileNameTabNext = "AV5_TabTransientNext.lua"
 enableDebug = false
