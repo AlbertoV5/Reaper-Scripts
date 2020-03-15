@@ -1,5 +1,4 @@
 --User Variables
---The installation path is after User/username/ in Mac
 installationPath = "/Library/Application Support/REAPER/Scripts/" -- \ for Win, / for Mac
 --/Program Files/REAPER (x64)/InstallData/Scripts/ for Windows, probably
 fileNameTabPrev = "AV5_TabTransientPrev.lua"
@@ -84,7 +83,7 @@ end
 --Process
 dir = GetDirectory()
 s = tostring(GetOS())
-if enableDebug == true then reaper.ShowConsoleMsg("Separator = "..s) end
+if enableDebug == true then reaper.ShowConsoleMsg("Separator = "..s.."\nDirectory = "..dir) end
 listDir = mysplit(dir,s)
 
 newDir = s..tostring(listDir[1])..s..tostring(listDir[2])..s
