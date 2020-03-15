@@ -2,7 +2,7 @@
 installationPath = "/Library/Application Support/REAPER/Scripts/" -- \ for Win, / for Mac
 fileNameTabPrev = "AV5_TabTransientPrev.lua"
 fileNameTabNext = "AV5_TabTransientNext.lua"
-enableDebug = true
+enableDebug = false
 --[[
 Script: Toggle Tab to transient
 
