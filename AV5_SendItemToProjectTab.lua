@@ -6,6 +6,11 @@ Script: Send Item To NEXT PROJECT TAB
 
 Description: u/mafgar requested something I didn't know I needed. Here it is.
 
+It sorts position and track so you have all items one after another and in the same track.
+You can configure the number of tabs you want to jump every time, 
+in case you have 3 opened and want to send to tab #3 (in that case you want to jump 2 tabs). 
+As well as the separation between items in the subproject.
+
 Script by Alberto Valdez at av5sound.com and u/Sound4Sound
 --]]
 
