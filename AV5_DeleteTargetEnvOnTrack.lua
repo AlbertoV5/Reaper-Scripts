@@ -10,7 +10,6 @@ Script by Alberto Valdez at av5sound.com and u/Sound4Sound
 --]]
 
 local function GetTargetEnv(track)
-	local numEnv = reaper.CountTrackEnvelopes(track)
 	for i = 0, reaper.CountTrackEnvelopes(track)-1 do
 		env = reaper.GetTrackEnvelope(track,i)
 		retval, envName = reaper.GetEnvelopeName(env,"buf")
