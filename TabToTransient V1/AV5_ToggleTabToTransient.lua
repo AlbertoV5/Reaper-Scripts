@@ -1,19 +1,13 @@
 --User Variables
-installationPath = "/Library/Application Support/REAPER/Scripts/" -- \ for Win, / for Mac
---\Program Files\REAPER (x64)\InstallData\Scripts\ for Windows, probably
 fileNameTabPrev = "AV5_TabTransientPrev.lua"
 fileNameTabNext = "AV5_TabTransientNext.lua"
-enableDebug = false
+enableDebug = true
 --[[
 Script: Toggle Tab to transient
 
-Description: u/thatpaxguy requested a Toggle Tab to Transient. The only way I found
-to do it natively is to use file io and reaper.GetProjectPath to gain insight on the user
-folder path and redirect to the Script folder and then change the complementary scripts
-to do a different thing when this "Toggle script" is launched. From true to false and inverse.
+Description: u/thatpaxguy requested a Toggle Tab to Transient. Fixed clunky method.
 
-V1.0: As of now, this works 100% on a Mac on default installation path for scripts. Gotta test
-it with different setups.
+V1.1: As of now, this works 100% on a Mac. Gotta test it on Win still.
 
 Script by Alberto Valdez at av5sound.com and u/Sound4Sound
 --]]
@@ -58,7 +52,8 @@ local function WriteFiles(directory)
 end
 
 local function GetDirectory()
-	return reaper.GetProjectPath("")
+	local info = debug.getinfo(1,'S')
+	return info.source:match[[^@?(.*[\\/])[^\\/]-$]]
 end
 
 local function GetOS()
@@ -81,18 +76,11 @@ function mysplit (inputstr, sep) --from strackoverflow user973713
 end
 
 --Process
-dir = GetDirectory()
+
+reaper.ShowConsoleMsg(tostring(scriptPath))
+newDir = GetDirectory()
+
 s = tostring(GetOS())
-if enableDebug == true then reaper.ShowConsoleMsg("Separator = "..s.."\nDirectory = "..dir) end
-listDir = mysplit(dir,s)
-
-newDir = s..tostring(listDir[1])..s..tostring(listDir[2])..s
-
-instPath = mysplit(installationPath,s)
-for i = 1,#instPath do
-	newDir = newDir..instPath[i]..s
-end
-
 if enableDebug == true then reaper.ShowConsoleMsg("\nScript Directory: "..newDir) end
 
 ReadFile(newDir, fileNameTabNext)
