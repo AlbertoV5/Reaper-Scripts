@@ -44,13 +44,13 @@ end
 local function WriteFiles(directory)
 	local t = Toggle()
 	file = io.open(directory..fileNameTabPrev,"w")
-	line1 = t.."\nif tabToTransient == true then reaper.Main_OnCommand(40376, 1)\nelse reaper.Main_OnCommand(40318,1) end"
+	line1 = t.."\nif tabToTransient == true and reaper.CountSelectedMediaItems(0) > 0 then reaper.Main_OnCommand(40376, 1)\nelse reaper.Main_OnCommand(40318,1) end"
 	if enableDebug == true then reaper.ShowConsoleMsg("\n"..tostring(line1).."\n") end
 	file:write(line1)
 	file:close()
 
 	file2 = io.open(directory..fileNameTabNext,"w")
-	line2 = t.."\nif tabToTransient == true then reaper.Main_OnCommand(40375, 1)\nelse reaper.Main_OnCommand(40319,1) end"
+	line2 = t.."\nif tabToTransient == true and reaper.CountSelectedMediaItems(0) > 0 then reaper.Main_OnCommand(40375, 1)\nelse reaper.Main_OnCommand(40319,1) end"
 	if enableDebug == true then reaper.ShowConsoleMsg("\n"..tostring(line2).."\n") end
 	file2:write(line2)
 	file2:close()
