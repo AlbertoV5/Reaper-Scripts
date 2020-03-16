@@ -1,3 +1,5 @@
+TOGGLE TAB TO TRANSIENT
+
 HOW TO USE:
 
 Load the Toggle script in actions and set a hotkey or place it on a toolbar. Then load the complementary scripts (TabTransientNext, TabTransientPrev) with the hotkeys you want for tabbing to next item/transient and previous item/transient respectively. So yeah, the complementary scripts replace your current tab hotkeys.
