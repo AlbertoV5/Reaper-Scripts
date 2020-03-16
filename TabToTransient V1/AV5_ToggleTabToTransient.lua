@@ -1,7 +1,7 @@
 --User Variables
 fileNameTabPrev = "AV5_TabTransientPrev.lua"
 fileNameTabNext = "AV5_TabTransientNext.lua"
-enableDebug = true
+enableDebug = false
 --[[
 Script: Toggle Tab to transient
 
