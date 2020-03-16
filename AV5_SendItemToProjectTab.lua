@@ -2,7 +2,7 @@
 separation = 0.00 --time in seconds, separation between items
 projectTab = 1 --number of project tabs you want to jump every time
 --[[
-Script: Send Item To NEXT PROJECT TAB
+Script: Send Item To PROJECT TAB and sort in one track
 
 Description: u/mafgar requested something I didn't know I needed. Here it is.
 
