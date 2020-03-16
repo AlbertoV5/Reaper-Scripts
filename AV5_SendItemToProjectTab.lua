@@ -40,7 +40,6 @@ local function Arrange() -- After Pasting the item
 			reaper.SetMediaItemInfo_Value(item[i], "D_POSITION", 0)
 		else
 			position = position + length[i-1] + separation
-			reaper.ShowConsoleMsg(tostring(position.."\n"))
 			reaper.SetMediaItemInfo_Value(item[i], "D_POSITION", position)
 		end
 	end
