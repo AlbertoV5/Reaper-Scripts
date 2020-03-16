@@ -77,7 +77,6 @@ end
 
 --Process
 
-reaper.ShowConsoleMsg(tostring(scriptPath))
 newDir = GetDirectory()
 
 s = tostring(GetOS())
@@ -85,5 +84,3 @@ if enableDebug == true then reaper.ShowConsoleMsg("\nScript Directory: "..newDir
 
 ReadFile(newDir, fileNameTabNext)
 WriteFiles(newDir)
-
---That's it folks
