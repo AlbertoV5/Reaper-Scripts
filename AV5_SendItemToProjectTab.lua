@@ -52,6 +52,7 @@ local function OneTrack() --SORT TO ONE TRACK
 	for i=1, reaper.CountMediaItems(0)-1 do
 		reaper.MoveMediaItemToTrack(reaper.GetMediaItem(0, i), track)
 	end
+	reaper.SelectAllMediaItems(0, false)
 end
 
 --Proccess
@@ -66,6 +67,3 @@ OneTrack()--Place all items on a single track with their new arranged position
 for i=1, projectTab do
 	reaper.Main_OnCommand(40862,1) -- Tab Prev
 end
-
-
-
