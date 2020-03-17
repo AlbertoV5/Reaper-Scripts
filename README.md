@@ -5,7 +5,7 @@ You can find a set of scripts that can help you improve your workflow on Reaper 
 
 # List of Scripts
 
-##### AV5_CycleGrid
+#### AV5_CycleGrid
 Cycle through grid up or down by pressing 1 key.
 
 ##### AV5_TabtoTransient
