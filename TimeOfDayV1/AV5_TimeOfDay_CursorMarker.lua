@@ -12,6 +12,9 @@ Script: Set Cursor to Current Time of Day w/Marker.
 Description: Move cursor to current time of day in the ruler. 
 Then add a marker depending on user configuration.
 
+Note: it's currently not 100% compatible with TimeOfDay_ProjectStart
+as it always takes the start of the ruler as 0:00
+
 Script by Alberto Valdez at av5sound.com and u/Sound4Sound
 --]]
 
@@ -33,9 +36,12 @@ local function GetTime() -- Get string and split and then sum int
 
 	local time = mysplit(hours[4], ":")
 	local hour = tonumber(time[1])*60*60
+	Debug(hour)
 	local minute = tonumber(time[2])*60
 	if ignoreSeconds == false then seconds = tonumber(time[3]) else seconds = 0 end
-	return hour+minute+seconds, hours[4]
+	value = hour+minute+seconds
+	Debug(value)
+	return value, hours[4]
 end
 
 local function AddMarker(pos,name)
@@ -43,11 +49,15 @@ local function AddMarker(pos,name)
 end
 
 
-
 cursor,hour = GetTime() --returns int and string
 Debug("Cursor Position: "..tostring(cursor))
+
+reaper.SetEditCurPos(0, false, false)
+cursorIn = reaper.GetCursorPosition()
+cursor = cursor - cursorIn
+
 if moveCursor == true then
-	reaper.SetEditCurPos(cursor, true, true) --Position the Cursor
+	reaper.SetEditCurPos2(0,cursor, true, true) --Position the Cursor
 else
 	cursor = reaper.GetCursorPosition()
 end
