@@ -1,5 +1,6 @@
 --User Variables
 addMarker = true
+moveCursor = true
 customMarkerName = ""
 addTimeOfDay_ToMarkerName = true
 ignoreSeconds = false
@@ -41,9 +42,15 @@ local function AddMarker(pos,name)
 	reaper.AddProjectMarker(0, false, pos, 0, name, -1) -- -1 for no specific index
 end
 
+
+
 cursor,hour = GetTime() --returns int and string
 Debug("Cursor Position: "..tostring(cursor))
-reaper.SetEditCurPos(cursor, true, true) --Position the Cursor
+if moveCursor == true then
+	reaper.SetEditCurPos(cursor, true, true) --Position the Cursor
+else
+	cursor = reaper.GetCursorPosition()
+end
 
 if addTimeOfDay_ToMarkerName == true then 
 	markerName = customMarkerName.." "..hour
