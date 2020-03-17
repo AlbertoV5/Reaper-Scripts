@@ -1,6 +1,6 @@
-###TOGGLE TAB TO TRANSIENT
+### TOGGLE TAB TO TRANSIENT
 
-####HOW TO USE:
+#### HOW TO USE:
 
 1. Load the "AV5_ToggleTabToTransient.lua" Script.
 2. Then load the complementary scripts: "AV5_TabTransientNext.lua", "AV5_TabTransientPrev.lua"
