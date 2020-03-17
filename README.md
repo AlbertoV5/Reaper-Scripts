@@ -1,9 +1,9 @@
 # Reaper-Scripts
 A bunch of reaper scripts
 
-You can find a set of scripts that can help you improve your workflow on Reaper or try to incentivize creative processes.
+I’m making various Reaper scripts to improve workflow on audio and music tasks. 
 
-# List of Scripts
+## List of Scripts
 
 #### AV5_CycleGrid
 Cycle through grid up or down by pressing 1 key.
