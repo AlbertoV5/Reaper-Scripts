@@ -24,7 +24,7 @@ Set a random grid from the list of possible grids. Configure to include swing or
 #### AV5_SendItemToProjectTab
 Send selected items to the next project tab and sort them all in one track one after another. Configure first lines to add a separation time between items and number of tabs you want the script to jump.
 
-#### How to install Scripts:
+## How to install Scripts:
 
 1. Download scripts as .zip or copy contents.
 2. Place them in your Scripts folder (Library/Application Support/Reaper/Scripts or Win alternative)
