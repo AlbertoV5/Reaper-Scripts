@@ -6,7 +6,7 @@ I’m making various Reaper scripts to improve workflow on audio and music tasks
 ## List of Scripts
 
 #### AV5_CycleGrid
-Cycle through grid up or down by pressing 1 key.
+Cycle through grid up or down. Configure on first lines.
 
 #### AV5_TabtoTransient
 Enable or Disable tab to transient. Install all 3 scripts and replace your keybinds for tab to next and tab to prev. You can use the complementary scripts by themselves and it will tab to item if no item selected and to transient if there are items selected.
