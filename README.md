@@ -16,7 +16,7 @@ Deletes all envelope points of "Trim Envelope" on selected track. You can config
 Create a new project with random tempo, grid, time signature, number of tracks, name of tracks and track colors. Configure on first lines of the script to true or false the parameter you want to randomize. Lite version included.
 
 #### AV5_RandomCursorMoveGrid
-Move the cursor 1 unit in the script randomly between left and right. 50% chance.
+Move the cursor 1 unit in the grid randomly between left and right. 50% chance.
 
 #### AV5_RandomGrid
 Set a random grid from the list of possible grids. Configure to include swing or add/remove grid sizes to the pool.
