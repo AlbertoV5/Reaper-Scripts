@@ -4,7 +4,7 @@ list = {1/16,1/8,1/4,1/2,1}
 --[[
 Script: Cycle through grid downwards. Modify list to add values.
 
-Script by Alberto Valdez at av5sound.com and u/Sound4Sound
+u/Sound4Sound at av5sound.com
 --]]
 
 local function GetGrid()
