@@ -4,7 +4,7 @@ Various .lua scripts to improve workflow on audio and music tasks in Reaper.
 ## List of Scripts
 
 #### Color
-Re-color items/takes based on their names. Great for sample editing ("snare" to red, "kick" to blue, etc.).
+Re-color items/takes based on their names. Great for sample editing ("snare" to red, "kick" to blue, etc.). Configure and add keywords/names on script.
 
 #### AV5_CycleGrid
 Cycle through grid up or down. Configure on first lines.
