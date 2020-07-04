@@ -18,7 +18,7 @@ Make sure the file and the project are in the same directory.
 Important for tinkerers: If project length < time of day it won't work, I solved it with cursor position.
 Also, make sure to force save project before modifying the .RPP, never after. I'm dumb.
 
-Script by Alberto Valdez at av5sound.com and u/Sound4Sound
+u/Sound4Sound av5sound.com
 --]]
 
 local function Debug(content)
