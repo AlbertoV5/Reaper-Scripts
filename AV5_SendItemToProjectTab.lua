@@ -11,7 +11,7 @@ You can configure the number of tabs you want to jump every time,
 in case you have 3 opened and want to send to tab #3 (in that case you want to jump 2 tabs). 
 As well as the separation between items in the subproject.
 
-Script by Alberto Valdez at av5sound.com and u/Sound4Sound
+u/Sound4Sound at av5sound.com 
 --]]
 
 local function Prepare() -- Before Pasting the item
