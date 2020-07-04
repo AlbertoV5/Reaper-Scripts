@@ -30,7 +30,7 @@ Modify the User Variables to get different results each time you run it.
 Set to true or false as a base and for advanced tweaks, you can modify the
 tempo range, grid list, #of new random tracks, etc. 
 
-Script by Alberto Valdez at av5sound.com and u/Sound4Sound
+u/Sound4Sound at av5sound.com
 --]]
 
 local function RandomTem()
