@@ -8,7 +8,7 @@ Script: Random grid with swing option
 
 Description: u/Than_Kyou
 
-Script by Alberto Valdez at av5sound.com and u/Sound4Sound
+u/Sound4Sound at av5sound.com
 --]]
 
 local function RandomGr()
