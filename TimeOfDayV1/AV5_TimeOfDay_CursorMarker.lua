@@ -15,7 +15,7 @@ Then add a marker depending on user configuration.
 Note: it's currently not 100% compatible with TimeOfDay_ProjectStart
 as it always takes the start of the ruler as 0:00
 
-Script by Alberto Valdez at av5sound.com and u/Sound4Sound
+u/Sound4Sound at av5sound.com
 --]]
 
 date = os.date()
