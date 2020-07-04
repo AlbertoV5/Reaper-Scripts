@@ -8,7 +8,7 @@ Script: New Random Project Lite!
 
 Description: As u/Total-Jerk requested, just random tempo.
 
-Script by Alberto Valdez at av5sound.com and u/Sound4Sound
+u/Sound4Sound at av5sound.com
 --]]
 
 local function RandomTem()
