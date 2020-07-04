@@ -6,7 +6,7 @@ targetEnvelope = "Trim Volume"
 Script: Delete Target Envelope On Track
 Select and delete all points of a designated envelope on the selected track
 
-Script by Alberto Valdez at av5sound.com and u/Sound4Sound
+u/Sound4Sound at av5sound.com
 --]]
 
 local function GetTargetEnv(track)
