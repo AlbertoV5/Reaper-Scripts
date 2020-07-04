@@ -5,7 +5,7 @@ Script: Random Cursor Move
 
 Description: u/Than_Kyou
 
-u/Sound4Soundat av5sound.com and 
+u/Sound4Sound at av5sound.com and 
 --]]
 
 local function RandomMoveCursor()
