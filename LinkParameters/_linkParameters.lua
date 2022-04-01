@@ -1,3 +1,7 @@
+-- 1. Create new track in Reaper and select it
+-- 2. Add the same copy of an FX multiple times
+-- 3. Run this script
+
 --Range of FXs, first position controls the rest.
 fxRange = {0,8}
 --Range of Parameters to Link. Stops at max.
