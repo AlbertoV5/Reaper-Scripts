@@ -2,9 +2,11 @@
 -- 2. Add the same copy of an FX multiple times
 -- 3. Run this script
 
---Range of FXs. The first FX in the chain controls the others.
+--Range of FXs, zero-based. First FX on the range controls the others. 
+--Example: {1, 4} on Reaper means fx #2 controls fx #3,#4,#5
 fxRange = {0,8}
---Range of Parameters to Link. Stops at max.
+--Range of Parameters to Link.
+--Example: Skip parameters 0 and 1 and stop at 10 with {2, 10}
 fxParamRange = {0,999}
 
 --Utility
@@ -74,9 +76,12 @@ function modifyTrackStateChunk(trackStateChunk, fxPosition)
     chunksDirty = Split(trackStateChunk, "<")
     chunks = {}
     -- Bandage fix for .dll files
-    for i = 3, #chunksDirty, 1 do
-        if chunksDirty[i]:find("\n") ~= nil then
-            table.insert(chunks, chunksDirty[i - 1].."<"..chunksDirty[i])
+    for i = 2, #chunksDirty, 1 do
+        if chunksDirty[i]:find("\n") == nil then
+            table.insert(chunks, chunksDirty[i].."<"..chunksDirty[i + 1])
+            i = i + 1
+        else
+            table.insert(chunks, chunksDirty[i])
         end
     end
 
@@ -89,11 +94,12 @@ function modifyTrackStateChunk(trackStateChunk, fxPosition)
             fxPosition = fxPosition + 1
         end
         if header:sub(1, 2) == "JS" then
-            jsBehavesDifferent = "idk"
+            jsBehavesDifferently = "idk"
         end
     end
 
-    trackStateChunkNew = ""
+    -- Replace "<" with "" if the bandage fix changes
+    trackStateChunkNew = "<"
     for i=1, #chunks, 1 do
         trackStateChunkNew = trackStateChunkNew..chunks[i].."<"
     end
@@ -121,5 +127,4 @@ if reaper.SetTrackStateChunk(track, trackStateChunk, true) then
 else
     reaper.MB("Couldn't change track state chunk", "Terrible Failure", 0)
 end
-
 
