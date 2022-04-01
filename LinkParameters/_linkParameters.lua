@@ -109,7 +109,7 @@ retval, trackStateChunk = reaper.GetTrackStateChunk(track, "", true)
 
 trackStateChunk = modifyTrackStateChunk(trackStateChunk, fxRange[1])
 
-reaper.ShowConsoleMsg(trackStateChunk)
+--reaper.ShowConsoleMsg(trackStateChunk)
 
 if reaper.SetTrackStateChunk(track, trackStateChunk, true) then
     reaper.MB("Parameters were linked", "Big Success", 0)
