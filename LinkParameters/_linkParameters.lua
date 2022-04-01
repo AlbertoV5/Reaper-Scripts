@@ -2,7 +2,7 @@
 -- 2. Add the same copy of an FX multiple times
 -- 3. Run this script
 
---Range of FXs, first position controls the rest.
+--Range of FXs. The first FX in the chain controls the others.
 fxRange = {0,8}
 --Range of Parameters to Link. Stops at max.
 fxParamRange = {0,999}
@@ -16,8 +16,8 @@ function Split(s, delimiter)
     return result;
 end
 
---Optional create copies of FX first, enable on main
-function copyFocusedFX(times)
+--Optional create copies of FX first. Uncomment it below.
+function copyFirstFX(times)
     fxNumber = 0
     track = reaper.GetSelectedTrack(0,0)
     for i = 1, times, 1 do
@@ -73,6 +73,7 @@ function modifyTrackStateChunk(trackStateChunk, fxPosition)
 
     chunksDirty = Split(trackStateChunk, "<")
     chunks = {}
+    -- Bandage fix for .dll files
     for i = 3, #chunksDirty, 1 do
         if chunksDirty[i]:find("\n") ~= nil then
             table.insert(chunks, chunksDirty[i - 1].."<"..chunksDirty[i])
@@ -101,7 +102,7 @@ function modifyTrackStateChunk(trackStateChunk, fxPosition)
 end
 
 
---track = copyFocusedFX(fxRange[2] - 1)
+--track = copyFirstFX(fxRange[2] - 1)
 track = reaper.GetSelectedTrack(0,0)
 fxParamMax = reaper.TrackFX_GetNumParams(track, fxRange[1])
 
