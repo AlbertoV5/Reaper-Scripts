@@ -35,7 +35,6 @@ end
 function insertLineInString(fxString, index, newLine)
     
     array = Split(fxString, "\n")
-
     table.insert(array, #array+index, newLine)
     
     fxStringNew = ""
@@ -49,7 +48,7 @@ end
 --Create multiple Program Env as string
 function addProgramEnvs(fxString, fxPosition)
 
-    if fxPosition == fxRange[1] or fxPosition >= fxRange[2] then
+    if fxPosition == fxRange[1] or fxPosition >= fxRange[2]then
         return fxString
     end
 
@@ -68,12 +67,18 @@ end
 --Return the modified state chunk as a string
 function modifyTrackStateChunk(trackStateChunk, fxPosition)
 
-    chunks = Split(trackStateChunk, "<")
+    chunksDirty = Split(trackStateChunk, "<")
+    chunks = {}
+    for i = 3, #chunksDirty, 1 do
+        if chunksDirty[i]:find("\n") ~= nil then
+            table.insert(chunks, chunksDirty[i - 1].."<"..chunksDirty[i])
+        end
+    end
 
     for i=1, #chunks, 1 do
 
         header = Split(chunks[i], "\n")[1]
-        reaper.ShowConsoleMsg(header.."\n")
+
         if header:sub(1, 3) == "VST" then
             chunks[i] = addProgramEnvs(chunks[i], fxPosition)
             fxPosition = fxPosition + 1
@@ -88,32 +93,28 @@ function modifyTrackStateChunk(trackStateChunk, fxPosition)
         trackStateChunkNew = trackStateChunkNew..chunks[i].."<"
     end
 
-    return trackStateChunkNew
+    return trackStateChunkNew:sub(1, -2)
 end
 
 
-function main()
+--track = copyFocusedFX(fxRange[2] - 1)
+track = reaper.GetSelectedTrack(0,0)
+fxParamMax = reaper.TrackFX_GetNumParams(track, fxRange[1])
 
-    --track = copyFocusedFX(fxRange[2] - 1)
-    track = reaper.GetSelectedTrack(0,0)
-    fxParamMax = reaper.TrackFX_GetNumParams(track, fxRange[1])
-
-    if fxParamRange[2] > fxParamMax then
-        fxParamRange = {fxParamRange[1], fxParamMax}
-    end
-
-    retval, trackStateChunk = reaper.GetTrackStateChunk(track, "", true)
-
-    --reaper.ShowConsoleMsg(trackStateChunk)
-
-    trackStateChunk = modifyTrackStateChunk(trackStateChunk, fxRange[1])
-
-    if reaper.SetTrackStateChunk(track, trackStateChunk, true) then
-        reaper.MB("Parameters were linked", "Big Success", 0)
-    else
-        reaper.MB("Couldn't change track state chunk", "Terrible Failure", 0)
-    end
-
+if fxParamRange[2] > fxParamMax then
+    fxParamRange = {fxParamRange[1], fxParamMax}
 end
 
-main()
+retval, trackStateChunk = reaper.GetTrackStateChunk(track, "", true)
+
+trackStateChunk = modifyTrackStateChunk(trackStateChunk, fxRange[1])
+
+reaper.ShowConsoleMsg(trackStateChunk)
+
+if reaper.SetTrackStateChunk(track, trackStateChunk, true) then
+    reaper.MB("Parameters were linked", "Big Success", 0)
+else
+    reaper.MB("Couldn't change track state chunk", "Terrible Failure", 0)
+end
+
+
