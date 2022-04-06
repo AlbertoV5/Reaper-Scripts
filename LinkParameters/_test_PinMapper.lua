@@ -35,12 +35,12 @@ local function set_pins_fx_rack_1_2_cascade_in_out()
   local sdL = pinL << (count_fx-1)*2
   local sdR = pinR << (count_fx-1)*2
 
-  Print(sdL)
-  Print(sdR)
+  --Print(sdL)
+  --Print(sdR)
 
   for i = 0, count_fx-1 do
     setIO(track, i, pinL, pinR, sdL, sdR)
-    Print(pinL.." "..pinR)
+    --Print(pinL.." "..pinR)
     pinL = pinL * 4
     pinR = pinR * 4
   end
