@@ -61,7 +61,7 @@ class Converter:
 
     def writeFile(self) -> bool:
         file_name = self.fxName.split(": ")[1].split(" (")[0]
-        output_file = f"{self.output_path}{self.sep}{file_name}.json"
+        output_file = f"{self.output_path}{self.sep}{file_name}.xml"
         
         with open(output_file, "wb") as file:
             file.write(ET.tostring(self.FX.name, encoding = "UTF-8", xml_declaration=True))
