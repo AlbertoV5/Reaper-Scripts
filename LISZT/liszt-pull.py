@@ -36,7 +36,7 @@ class Converter:
     def getFXParamsTable(self) -> bool:
         if not self.selected_fx_name:
             return False
-        
+
         self.params_table["fx_name"] = self.selected_fx_name
         numParams = (
             reaper.TrackFX_GetNumParams(self.selected_track, self.selected_fx_num) - 1
@@ -56,7 +56,7 @@ class Converter:
         file_name = self.selected_fx_name.split(": ")[1].split(" (")[0]
         self.output_file = f"{self.output_path}{self.sep}{file_name}.json"
         with open(self.output_file, "w+") as file:
-            file.write(json.dumps(self.params_table, indent=4))
+            json.dump(self.params_table, file, indent=4)
 
         reaper.SetExtState(
             "AlbertoV5-ReaperTools", "liszt_jsonpath1", self.output_file, True
@@ -64,9 +64,9 @@ class Converter:
         return exists(self.output_file)
 
     def result(self, fun, msg: str = ""):
-        """Show a message box if the result of the function is ok"""
+        """Show Message Box if something goes wrong"""
         if self.status and not fun():
-            msg = f"Failed to {fun.__name__}" if msg == "" else msg
+            msg = f"Failed to {fun.__name__}" if not msg else msg
             self.status = False
             return reaper.MB(msg, self.mb_title, 0)
 

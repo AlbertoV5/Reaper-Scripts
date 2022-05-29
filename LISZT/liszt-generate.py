@@ -1,13 +1,13 @@
 import tosclib as tosc
-import json
-from reapy import reascript_api as reaper
 from pathlib import Path
+import xml.etree.ElementTree as ET
 
 
-def getJson(fileName: str):
-    with open(fileName, "r") as file:
-        return json.loads(file.read())
-
+class FX():
+    def __init__(self, inputPath):
+        with open(inputPath, "r") as file:
+            self.name = ET.fromstring(file.read())
+        self.params = self.name.find("params")
 
 def oscMsg() -> tosc.OSC:
     """Create a message with a path constructed with custom Partials"""
@@ -20,7 +20,6 @@ def oscMsg() -> tosc.OSC:
         ]
     )
 
-
 def createFader(e: tosc.ElementTOSC, name, width, limit, i, msg):
     fader = tosc.ElementTOSC(e.createChild("FADER"))
     fader.createProperty("s", "name", name)
@@ -29,8 +28,9 @@ def createFader(e: tosc.ElementTOSC, name, width, limit, i, msg):
     fader.createOSC(msg)  # Creates a new message from custom tosc.OSC
 
 
-def main(jsonFile, outputFile):
-    jsonData = getJson(jsonFile)
+def main(inputFile, outputFile):
+
+    fx = FX(inputFile)
 
     root = tosc.createTemplate()
     base = tosc.ElementTOSC(root[0])
@@ -39,7 +39,7 @@ def main(jsonFile, outputFile):
 
     # Group container for the faders
     group = tosc.ElementTOSC(base.createChild("GROUP"))
-    group.createProperty("s", "name", jsonData["fx_name"])
+    group.createProperty("s", "name", fx.name.text)
     group.setFrame(420, 0, 1080, 1080)
     group.setColor(0.25, 0.25, 0.25, 1)
 
@@ -48,15 +48,15 @@ def main(jsonFile, outputFile):
     width = int(group.getPropertyParam("frame", "w").text) / limit
     msg = oscMsg()
 
-    for i, param in enumerate(jsonData["fx_params"]):
-        createFader(group, param["name"], width, limit, i, msg)
-        if i == limit:
+    for param in fx.params:
+        index = int(param.attrib["index"])
+        createFader(group, param.text, width, limit, index, msg)
+        if index == limit:
             break
 
     tosc.write(root, outputFile)
 
 
 if __name__ == "__main__":
-    file = Path(reaper.GetExtState("AlbertoV5-ReaperTools", "liszt_jsonpath1"))
+    file = Path(RPR_GetExtState("AlbertoV5-ReaperTools", "liszt_path_1"))
     main(file, file.parent / f"{str(file.stem)}.tosc")
-    # reaper.MB(file, "Done", 0)
