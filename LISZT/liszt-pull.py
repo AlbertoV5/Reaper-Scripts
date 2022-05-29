@@ -1,74 +1,81 @@
-import json
-from reapy import reascript_api as reaper
-from os.path import exists
+import xml.etree.ElementTree as ET
 
+
+class FX():
+    def __init__(self, name):
+        self.name = ET.Element("name")
+        self.name.text = name
+        self.params = ET.SubElement(self.name, "params")
+        
+    def append(self, name, index):
+        e = ET.SubElement(self.params, "param", attrib={"index":str(index)})
+        e.text = name
 
 class Converter:
     def __init__(self):
         self.mb_title = "Liszt"
-        self.selected_track = None
-        self.selected_fx_num = None
-        self.selected_fx_name = None
-        self.params_table = {"fx_name": "", "fx_params": []}
-        (self.output_path, _) = reaper.GetProjectPath("", 8192)
-        os = reaper.GetOS()
+        self.track = None
+        self.fxNum = None
+        self.fxName = None
+        self.FX = None
+        (self.output_path, _) = RPR_GetProjectPath("", 8192)
+        os = RPR_GetOS()
         self.sep = "\\" if os == "Win32" or os == "Win64" else "/"
         self.status = True
-        self.output_file = None
 
     def update(self):
         self.result(self.getLastTouchedFX)
 
     def toJson(self):
         self.result(self.getFXParamsTable)
-        self.result(self.serializeJson)
+        self.result(self.writeFile)
 
     def getLastTouchedFX(self) -> bool:
-        (_, trackNumber, fxnumber, _) = reaper.GetLastTouchedFX(0, 0, 0)
-        self.selected_track = reaper.GetTrack(0, trackNumber)
-        (retval, _, _, fxName, _) = reaper.TrackFX_GetFXName(
-            self.selected_track, fxnumber, "", 2048
+        (_, _, fxnumber, _) = RPR_GetLastTouchedFX(0, 0, 0)
+        self.track = RPR_GetSelectedTrack(0, 0)
+        (retval, _, _, fxName, _) = RPR_TrackFX_GetFXName(
+            self.track, fxnumber, "", 2048
         )
-        self.selected_fx_num = fxnumber
-        self.selected_fx_name = fxName
+        self.fxNum = fxnumber
+        self.fxName = fxName
         return retval
 
     def getFXParamsTable(self) -> bool:
-        if not self.selected_fx_name:
+        if not self.fxName:
             return False
 
-        self.params_table["fx_name"] = self.selected_fx_name
+        self.FX = FX(self.fxName)
         numParams = (
-            reaper.TrackFX_GetNumParams(self.selected_track, self.selected_fx_num) - 1
+            RPR_TrackFX_GetNumParams(self.track, self.fxNum) - 1
         )
         for i in range(numParams):
-            (_, _, _, _, param, _) = reaper.TrackFX_GetParamName(
-                self.selected_track, self.selected_fx_num, i, "", 2048
+            (_, _, _, _, param, _) = RPR_TrackFX_GetParamName(
+                self.track, self.fxNum, i, "", 2048
             )
             if not _:
                 return False
             if param != "MIDI CC":
-                self.params_table["fx_params"].append({"index": i, "name": param})
+                self.FX.append(param, i)
 
         return True
 
-    def serializeJson(self) -> bool:
-        file_name = self.selected_fx_name.split(": ")[1].split(" (")[0]
-        self.output_file = f"{self.output_path}{self.sep}{file_name}.json"
-        with open(self.output_file, "w+") as file:
-            json.dump(self.params_table, file, indent=4)
+    def writeFile(self) -> bool:
+        file_name = self.fxName.split(": ")[1].split(" (")[0]
+        output_file = f"{self.output_path}{self.sep}{file_name}.json"
+        
+        with open(output_file, "wb") as file:
+            file.write(ET.tostring(self.FX.name, encoding = "UTF-8", xml_declaration=True))
 
-        reaper.SetExtState(
-            "AlbertoV5-ReaperTools", "liszt_jsonpath1", self.output_file, True
+        RPR_SetExtState(
+            "AlbertoV5-ReaperTools", "liszt_path_1", output_file, True
         )
-        return exists(self.output_file)
+        return True
 
     def result(self, fun, msg: str = ""):
-        """Show Message Box if something goes wrong"""
         if self.status and not fun():
             msg = f"Failed to {fun.__name__}" if not msg else msg
             self.status = False
-            return reaper.MB(msg, self.mb_title, 0)
+            return RPR_MB(msg, self.mb_title, 0)
 
 
 converter = Converter()
