@@ -1,6 +1,5 @@
 import xml.etree.ElementTree as ET
 
-
 class FX():
     def __init__(self, name):
         self.name = ET.Element("name")
@@ -26,7 +25,7 @@ class Converter:
     def update(self):
         self.result(self.getLastTouchedFX)
 
-    def toJson(self):
+    def save(self):
         self.result(self.getFXParamsTable)
         self.result(self.writeFile)
 
@@ -80,4 +79,4 @@ class Converter:
 
 converter = Converter()
 converter.update()
-converter.toJson()
+converter.save()
